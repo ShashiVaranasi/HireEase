@@ -6,11 +6,10 @@ export default function InterviewerDashboard() {
   const { token, logout } = useAuth();
   const [list, setList] = useState([]);
   const [comments, setComments] = useState({});
-
+ const API_BASE = process.env.REACT_APP_API || 'http://localhost:5000';
   useEffect(() => {
     fetchList();
   }, []);
-
   async function fetchList() {
     try {
       const res = await axios.get(`${API_BASE}/api/interviews`, {

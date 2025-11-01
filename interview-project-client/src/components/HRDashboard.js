@@ -12,6 +12,7 @@ export default function HRDashboard(){
   const [interviewer, setInterviewer] = useState('');
   const [datetime, setDatetime] = useState('');
   const [position, setPosition] = useState('');
+   const API_BASE = process.env.REACT_APP_API || 'http://localhost:5000';
   const api = (path)=> axios.get(`${API_BASE}${path}`, {
       headers: { Authorization: 'Bearer ' + token },
     });
