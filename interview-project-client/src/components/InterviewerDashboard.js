@@ -13,10 +13,9 @@ export default function InterviewerDashboard() {
 
   async function fetchList() {
     try {
-      const res = await axios.get(
-        (process.env.REACT_APP_API || 'http://localhost:5000') + '/api/interviews',
-        { headers: { Authorization: 'Bearer ' + token } }
-      );
+      const res = await axios.get(`${API_BASE}/api/interviews`, {
+        headers: { Authorization: 'Bearer ' + token },
+      });
       setList(res.data);
     } catch (err) {
       console.error('Error fetching interviews:', err);
@@ -27,7 +26,7 @@ export default function InterviewerDashboard() {
     try {
       const payload = comments[id] || { rating: 'Good', comments: 'Well done' };
       await axios.post(
-        (process.env.REACT_APP_API || 'http://localhost:5000') + `/api/interviews/${id}/feedback`,
+        `${API_BASE}/api/interviews/${id}/feedback`,
         payload,
         { headers: { Authorization: 'Bearer ' + token } }
       );

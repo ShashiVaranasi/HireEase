@@ -13,7 +13,12 @@ export default function Register(){
   const submit = async (e)=>{
     e.preventDefault();
     try{
-      const res = await axios.post(api, {name, username, password, role});
+      const res = await axios.post(`${API_BASE}/api/auth/register`, {
+        name,
+        username,
+        password,
+        role,
+      });
       login(res.data.user, res.data.token);
       if(res.data.user.role === 'hr') window.location = '/hr';
       else if(res.data.user.role === 'interviewer') window.location = '/interviewer';

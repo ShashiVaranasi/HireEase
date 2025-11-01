@@ -12,13 +12,24 @@ export default function HRDashboard(){
   const [interviewer, setInterviewer] = useState('');
   const [datetime, setDatetime] = useState('');
   const [position, setPosition] = useState('');
-  const api = (path)=> axios.get((process.env.REACT_APP_API||'http://localhost:5000')+path, {headers:{Authorization:'Bearer '+token}});
-  useEffect(()=>{ fetchAll(); fetchUsers(); },[]);
+  const api = (path)=> axios.get(`${API_BASE}${path}`, {
+      headers: { Authorization: 'Bearer ' + token },
+    });
+
+  useEffect(() => {
+    fetchAll();
+    fetchUsers();
+    // eslint-disable-next-line
+  }, []);
   async function fetchAll(){ const res = await api('/api/interviews/all'); setInterviews(res.data); }
   async function fetchUsers(){ const res = await api('/api/users'); setUsers(res.data); }
   async function schedule(e){
     e.preventDefault();
-    await axios.post((process.env.REACT_APP_API||'http://localhost:5000')+'/api/interviews',{candidateId:candidate,interviewerId:interviewer,datetime,position},{headers:{Authorization:'Bearer '+token}});
+     await axios.post(
+        `${API_BASE}/api/interviews`,
+        { candidateId: candidate, interviewerId: interviewer, datetime, position },
+        { headers: { Authorization: 'Bearer ' + token } }
+      );
     setCandidate(''); setInterviewer(''); setDatetime(''); setPosition('');
     fetchAll();
   }
