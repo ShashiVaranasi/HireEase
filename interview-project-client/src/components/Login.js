@@ -7,9 +7,11 @@ export default function Login(){
   const { login } = useAuth();
   const api = (process.env.REACT_APP_API||'http://localhost:5000') + '/api/auth/login';
   const [err, setErr] = useState('');
+   const API_BASE = process.env.REACT_APP_API || 'http://localhost:5000';
   const submit = async (e)=>{
     e.preventDefault();
     try{
+      
       const res = await axios.post(`${API_BASE}/api/auth/login`, { username, password });
       login(res.data.user, res.data.token);
       if(res.data.user.role === 'hr') window.location = '/hr';

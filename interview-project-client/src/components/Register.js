@@ -10,6 +10,7 @@ export default function Register(){
   const { login } = useAuth();
   const [err,setErr] = useState('');
   const api = (process.env.REACT_APP_API||'http://localhost:5000') + '/api/auth/register';
+   const API_BASE = process.env.REACT_APP_API || 'http://localhost:5000';
   const submit = async (e)=>{
     e.preventDefault();
     try{
